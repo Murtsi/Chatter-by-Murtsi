@@ -10,7 +10,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/, // Adjusted to handle both .js and .jsx files
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -23,5 +23,8 @@ module.exports = {
         },
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'], // Add .jsx to the extensions
   },
 };
