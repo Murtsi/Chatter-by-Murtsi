@@ -23,8 +23,17 @@ io.on('connection', (socket) => {
   socket.emit('chat history', messages);
 
   socket.on('chat message', (data) => {
-    messages.push(data); // Store the message
-    io.emit('chat message', data);
+    const timestamp = new Date().toLocaleTimeString();
+    const messageData = { ...data, timestamp };
+    messages.push(messageData); // Store the message
+    io.emit('chat message', messageData);
+  });
+
+  socket.on('user connected', (username) => {
+    const timestamp = new Date().toLocaleTimeString();
+    const connectMessage = { username, message: 'has connected', timestamp };
+    messages.push(connectMessage);
+    io.emit('chat message', connectMessage);
   });
 
   socket.on('disconnect', () => {
